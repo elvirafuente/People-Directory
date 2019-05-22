@@ -15,7 +15,6 @@ class PeopleList extends React.Component {
             )}
             </ul>
             </Fragment>
-            
         )
     }
 
