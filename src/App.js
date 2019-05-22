@@ -16,7 +16,7 @@ class App extends React.Component {
     fetchService()
     .then(data => {
       this.setState({
-        peopleData: data.results
+        peopleData: data.results,
       })
     })
   }
@@ -25,10 +25,18 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>People Directory</h1>
-        <Filters />
-        <PeopleList />
+        
+        { this.state.peopleData.length===0 
+          ? <p>Loadding...</p> 
+          : <div>
+              <Filters />
+              <PeopleList 
+                data={this.state.peopleData}
+              />
+            </div>
+        }
       </div>
-    );
+    )
   }
 }
 
