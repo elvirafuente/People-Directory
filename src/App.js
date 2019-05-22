@@ -1,11 +1,24 @@
 import React from 'react';
 import './App.scss';
+import fetchService from './services/fetchService'
 import Filters from './components/Filters'
 import PeopleList from './components/PeopleList';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      peopleData: [],
+    }
+  }
+
+  componentDidMount(){
+    fetchService()
+    .then(data => {
+      this.setState({
+        peopleData: data.results
+      })
+    })
   }
 
   render() {
