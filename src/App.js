@@ -9,7 +9,11 @@ class App extends React.Component {
     super(props)
     this.state = {
       peopleData: [],
+      filters:{
+        genders: [],
+      }
     }
+    this.handleGenderClick = this.handleGenderClick.bind(this);
   }
 
   componentDidMount(){
@@ -21,6 +25,21 @@ class App extends React.Component {
     })
   }
 
+  handleGenderClick(event){
+    const target = event.target.value;
+    const { checked } = event.target;
+    this.setState(prevState => {
+      return {
+        filters : {
+          ...prevState.filters,
+          genders: checked 
+                    ? prevState.filters.genders.concat(target)
+                    : prevState.filters.genders.filter(item => item !== target)
+        }
+      }
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -29,7 +48,7 @@ class App extends React.Component {
         { this.state.peopleData.length===0 
           ? <p>Loadding...</p> 
           : <div>
-              <Filters />
+              <Filters actionGender={this.handleGenderClick}/>
               <PeopleList 
                 data={this.state.peopleData}
               />
